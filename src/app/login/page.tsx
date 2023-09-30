@@ -25,8 +25,8 @@ const Login = () => {
           ...data,
         }).unwrap();
 
-        if (res.data.accessToken) {
-          storeUserInfo(res?.data?.accessToken);
+        if (res?.accessToken) {
+          storeUserInfo(res?.accessToken);
           router.push("/profile");
         }
       }

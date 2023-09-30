@@ -4,6 +4,7 @@ import { USER_ROLE } from "@/constants/role";
 import { Layout, Menu } from "antd";
 import { useState } from "react";
 import { Grid, Tag } from "antd";
+import { getUserInfo } from "@/services/auth.service";
 
 const { useBreakpoint } = Grid;
 
@@ -12,7 +13,7 @@ const { Sider } = Layout;
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
 
-  const role = USER_ROLE.SUPER_ADMIN;
+  const { role } = getUserInfo() as any;
 
   const screens = useBreakpoint();
 
