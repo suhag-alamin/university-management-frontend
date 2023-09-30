@@ -1,10 +1,8 @@
 "use client";
 import { SidebarItems } from "@/constants/SidebarItems";
-import { USER_ROLE } from "@/constants/role";
-import { Layout, Menu } from "antd";
-import { useState } from "react";
-import { Grid, Tag } from "antd";
 import { getUserInfo } from "@/services/auth.service";
+import { Grid, Layout, Menu } from "antd";
+import { useState } from "react";
 
 const { useBreakpoint } = Grid;
 
@@ -42,9 +40,10 @@ const Sidebar = () => {
             textAlign: "center",
             fontWeight: "bold",
             marginBottom: "1rem",
+            padding: 10,
           }}
         >
-          University Management
+          UMS
         </h3>
       </div>
       <Menu

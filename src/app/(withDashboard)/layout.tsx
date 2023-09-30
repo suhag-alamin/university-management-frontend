@@ -2,7 +2,7 @@
 import Contents from "@/components/ui/Contents";
 import Sidebar from "@/components/ui/Sidebar";
 import { isLoggedIn } from "@/services/auth.service";
-import { Layout } from "antd";
+import { Layout, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -20,7 +20,18 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }, [router, userLoggedIn]);
 
   if (!isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
   }
 
   return (
