@@ -19,7 +19,7 @@ export const SidebarItems = (role: string) => {
       icon: <ProfileOutlined />,
       children: [
         {
-          label: <Link href={`/${role}/profile`}>Account Profile</Link>,
+          label: <Link href={`/${role}`}>Account Profile</Link>,
           key: `/${role}/profile`,
         },
         {
@@ -31,8 +31,8 @@ export const SidebarItems = (role: string) => {
   ];
   const commonAdminSidebarItems: MenuProps["items"] = [
     {
-      label: <Link href={`/${role}/manage-students`}>Manage Students</Link>,
-      key: `/${role}/manage-students`,
+      label: <Link href={`/${role}/manage-student`}>Manage Student</Link>,
+      key: `/${role}/manage-student`,
       icon: <TableOutlined />,
     },
     {
@@ -121,26 +121,26 @@ export const SidebarItems = (role: string) => {
     ...defaultSidebarItems,
     ...commonAdminSidebarItems,
     {
-      label: <Link href={`/${role}/admin`}>Manage Admin</Link>,
+      label: <Link href={`/${role}/manage-admin`}>Manage Admin</Link>,
       icon: <TableOutlined />,
-      key: `/${role}/admin`,
+      key: `/${role}/manage-admin`,
     },
     {
-      label: <Link href={`/${role}/user`}>Manage User</Link>,
+      label: <Link href={`/${role}/manage-user`}>Manage User</Link>,
       icon: <TableOutlined />,
-      key: `/${role}/user`,
+      key: `/${role}/manage-user`,
     },
-    {
-      label: "Manage permission",
-      key: "manage-permission",
-      icon: <AppstoreOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}/permission`}>View permissions</Link>,
-          key: `/${role}/permission`,
-        },
-      ],
-    },
+    // {
+    //   label: "Manage permission",
+    //   key: "manage-permission",
+    //   icon: <AppstoreOutlined />,
+    //   children: [
+    //     {
+    //       label: <Link href={`/${role}/permission`}>View permissions</Link>,
+    //       key: `/${role}/permission`,
+    //     },
+    //   ],
+    // },
     {
       label: "Management",
       key: "management",

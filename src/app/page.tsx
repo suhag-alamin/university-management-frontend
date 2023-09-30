@@ -1,9 +1,7 @@
+import { redirect } from "next/navigation";
+
 const Home = () => {
-  return (
-    <div>
-      <h1>University Management</h1>
-    </div>
-  );
+  return redirect("/profile");
 };
 
 export default Home;

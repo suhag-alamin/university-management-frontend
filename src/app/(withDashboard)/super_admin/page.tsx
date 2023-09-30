@@ -1,9 +1,10 @@
+import ActionBar from "@/components/ui/ActionBar";
 import React from "react";
 
 const SuperAdmin = () => {
   return (
     <div>
-      <h1>super admin</h1>
+      <ActionBar title="Super Admin" />
     </div>
   );
 };

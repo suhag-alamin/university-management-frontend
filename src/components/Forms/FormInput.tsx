@@ -2,11 +2,7 @@
 import { Input } from "antd";
 import { useFormContext, Controller } from "react-hook-form";
 
-type FormValues = {
-  ReactDatepicker: string;
-};
-
-interface IInput {
+type IInput = {
   name: string;
   type?: string;
   size?: "large" | "small";
@@ -15,7 +11,7 @@ interface IInput {
   placeholder?: string;
   validation?: object;
   label?: string;
-}
+};
 
 const FormInput = ({
   name,
