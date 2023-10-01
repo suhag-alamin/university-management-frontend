@@ -9,6 +9,8 @@ import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UploadImage from "@/components/ui/UploadImage";
 import { bloodGroupOptions, genderOptions } from "@/constants/global";
+import { facultySchema } from "@/schemas/faculty";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row } from "antd";
 
 const CreateFaculty = () => {
@@ -56,8 +58,8 @@ const CreateFaculty = () => {
         />
       </div>
       <ActionBar title="Create Faculty" />
-      <Form submitHandler={adminOnSubmit}>
-        {/* faculty information */}
+      {/* faculty information */}
+      <Form submitHandler={adminOnSubmit} resolver={yupResolver(facultySchema)}>
         <div
           style={{
             border: "1px solid #d9d9d9",
@@ -75,6 +77,7 @@ const CreateFaculty = () => {
                 name="faculty.name.firstName"
                 label="First name"
                 size="large"
+                placeholder="John"
               />
             </Col>
 
@@ -83,6 +86,7 @@ const CreateFaculty = () => {
                 name="faculty.name.middleName"
                 label="Middle name"
                 size="large"
+                placeholder="Marcelo"
               />
             </Col>
 
@@ -91,6 +95,7 @@ const CreateFaculty = () => {
                 name="faculty.name.lastName"
                 label="Last name"
                 size="large"
+                placeholder="Doe"
               />
             </Col>
 
@@ -100,6 +105,7 @@ const CreateFaculty = () => {
                 name="password"
                 label="Password"
                 size="large"
+                placeholder="******"
               />
             </Col>
 
@@ -108,6 +114,7 @@ const CreateFaculty = () => {
                 name="faculty.gender"
                 label="Gender"
                 options={genderOptions}
+                placeholder="Select Gender"
               />
             </Col>
 
@@ -116,6 +123,7 @@ const CreateFaculty = () => {
                 name="faculty.academicFaculty"
                 label="Academic Faculty"
                 options={departmentOptions}
+                placeholder="Select Faculty"
               />
             </Col>
             <Col span={8} style={{ margin: "10px 0" }}>
@@ -123,6 +131,7 @@ const CreateFaculty = () => {
                 name="faculty.academicDepartment"
                 label="Academic Department"
                 options={departmentOptions}
+                placeholder="Select Department"
               />
             </Col>
 
@@ -150,6 +159,7 @@ const CreateFaculty = () => {
                 name="faculty.email"
                 label="Email address"
                 size="large"
+                placeholder="john@example.com"
               />
             </Col>
 
@@ -158,6 +168,7 @@ const CreateFaculty = () => {
                 name="faculty.contactNo"
                 label="Contact no."
                 size="large"
+                placeholder="246467618"
               />
             </Col>
 
@@ -166,6 +177,7 @@ const CreateFaculty = () => {
                 name="faculty.emergencyContactNo"
                 label="Emergency contact no."
                 size="large"
+                placeholder="1565489845"
               />
             </Col>
 
@@ -181,6 +193,7 @@ const CreateFaculty = () => {
                 name="faculty.bloodGroup"
                 label="Blood group"
                 options={bloodGroupOptions}
+                placeholder="Select Blood Group"
               />
             </Col>
 
@@ -189,6 +202,7 @@ const CreateFaculty = () => {
                 name="faculty.designation"
                 label="Designation"
                 size="large"
+                placeholder="Teacher"
               />
             </Col>
 

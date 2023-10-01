@@ -22,6 +22,7 @@ const GuardianInfo = () => {
               name="student.guardian.fatherName"
               label="Father name"
               size="large"
+              placeholder="John Doe"
             />
           </Col>
 
@@ -30,6 +31,7 @@ const GuardianInfo = () => {
               name="student.guardian.fatherOccupation"
               label="Father occupation"
               size="large"
+              placeholder="Business man"
             />
           </Col>
 
@@ -38,6 +40,7 @@ const GuardianInfo = () => {
               name="student.guardian.fatherContactNo"
               label="Father contact no."
               size="large"
+              placeholder="1565489845"
             />
           </Col>
 
@@ -46,6 +49,7 @@ const GuardianInfo = () => {
               name="student.guardian.motherName"
               label="Mother name"
               size="large"
+              placeholder="Jessica"
             />
           </Col>
 
@@ -54,6 +58,7 @@ const GuardianInfo = () => {
               name="student.guardian.motherOccupation"
               label="Mother occupation"
               size="large"
+              placeholder="House Wife"
             />
           </Col>
 
@@ -62,6 +67,7 @@ const GuardianInfo = () => {
               name="student.guardian.motherContactNo"
               label="Mother contact no."
               size="large"
+              placeholder="1565489845"
             />
           </Col>
 

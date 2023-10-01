@@ -21,6 +21,7 @@ const LocalGuardianInfo = () => {
             <FormInput
               name="student.localGuardian.name"
               label="Local guardian name"
+              placeholder="Jon"
             />
           </Col>
 
@@ -28,6 +29,7 @@ const LocalGuardianInfo = () => {
             <FormInput
               name="student.localGuardian.occupation"
               label="Local guardian occupation"
+              placeholder="Job Holder"
             />
           </Col>
 
@@ -35,6 +37,7 @@ const LocalGuardianInfo = () => {
             <FormInput
               name="student.localGuardian.contactNo"
               label="Local guardian contact no."
+              placeholder="1565489845"
             />
           </Col>
 

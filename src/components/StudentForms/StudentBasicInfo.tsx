@@ -23,6 +23,7 @@ const StudentBasicInfo = () => {
             name="student.email"
             label="Email address"
             size="large"
+            placeholder="student@example.com"
           />
         </Col>
 
@@ -31,6 +32,7 @@ const StudentBasicInfo = () => {
             name="student.contactNo"
             label="Contact no."
             size="large"
+            placeholder="1565489845"
           />
         </Col>
 
@@ -39,6 +41,7 @@ const StudentBasicInfo = () => {
             name="student.emergencyContactNo"
             label="Emergency contact no."
             size="large"
+            placeholder="1565489845"
           />
         </Col>
 
@@ -56,6 +59,7 @@ const StudentBasicInfo = () => {
             label="Blood group"
             options={bloodGroupOptions}
             size="large"
+            placeholder="Select Blood Group"
           />
         </Col>
 

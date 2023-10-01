@@ -20,10 +20,20 @@ const ChangePassword = () => {
       <Form submitHandler={onSubmit}>
         <h3 style={{ marginBottom: "10px" }}>Reset Password</h3>
         <div style={{ margin: "5px 0" }}>
-          <FormInput name="oldPassword" label="Old password" type="password" />
+          <FormInput
+            name="oldPassword"
+            label="Old password"
+            type="password"
+            placeholder="********"
+          />
         </div>
         <div style={{ margin: "5px 0" }}>
-          <FormInput name="newPassword" label="New password" type="password" />
+          <FormInput
+            name="newPassword"
+            label="New password"
+            type="password"
+            placeholder="********"
+          />
         </div>
         <Button type="primary" htmlType="submit">
           submit

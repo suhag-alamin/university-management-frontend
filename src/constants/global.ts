@@ -95,3 +95,8 @@ export const acSemesterOptions = [
     value: "summer23",
   },
 ];
+
+// for validation
+
+export const gender = ["male", "female"];
+export const bloodGroup = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];

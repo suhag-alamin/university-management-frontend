@@ -6,6 +6,8 @@ import StudentBasicInfo from "@/components/StudentForms/StudentBasicInfo";
 import StudentInfo from "@/components/StudentForms/StudentInfo";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import { studentSchema } from "@/schemas/student";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const CreateStudent = () => {
   const steps = [
@@ -59,6 +61,7 @@ const CreateStudent = () => {
       <ActionBar title="Create Student" />
       <StepperForm
         submitHandler={(value) => handleStudentSubmit(value)}
+        resolver={yupResolver(studentSchema)}
         steps={steps}
       />
     </div>

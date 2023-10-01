@@ -5,6 +5,10 @@ import { FormProps, FormProvider, useForm } from "react-hook-form";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
 import { useRouter } from "next/navigation";
 
+type FormConfig = {
+  resolver?: any;
+};
+
 type Steps = {
   title?: string;
   content?: React.ReactElement | React.ReactNode;
@@ -14,9 +18,15 @@ type StepsProps = {
   steps: Steps[];
   submitHandler: (el: any) => void;
   navigateLink?: string;
+  resolver?: any;
 };
 
-const StepperForm = ({ steps, submitHandler, navigateLink }: StepsProps) => {
+const StepperForm = ({
+  steps,
+  submitHandler,
+  navigateLink,
+  resolver,
+}: StepsProps) => {
   const router = useRouter();
 
   const [current, setCurrent] = useState<number>(
@@ -24,6 +34,12 @@ const StepperForm = ({ steps, submitHandler, navigateLink }: StepsProps) => {
       ? Number(JSON.parse(getFromLocalStorage("step") as string).step)
       : 0
   );
+
+  const formConfig: FormConfig = {};
+
+  if (!!resolver) {
+    formConfig["resolver"] = resolver;
+  }
 
   useEffect(() => {
     setToLocalStorage(

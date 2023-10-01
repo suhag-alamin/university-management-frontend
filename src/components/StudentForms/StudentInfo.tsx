@@ -33,6 +33,7 @@ const StudentInfo = () => {
             name="student.name.firstName"
             size="large"
             label="First Name"
+            placeholder="John"
           />
         </Col>
         <Col
@@ -47,6 +48,7 @@ const StudentInfo = () => {
             name="student.name.middleName"
             size="large"
             label="Middle Name"
+            placeholder="Marcel"
           />
         </Col>
         <Col
@@ -61,6 +63,7 @@ const StudentInfo = () => {
             name="student.name.lastName"
             size="large"
             label="Last Name"
+            placeholder="Doe"
           />
         </Col>
         <Col
@@ -75,6 +78,7 @@ const StudentInfo = () => {
             name="password"
             size="large"
             label="Password"
+            placeholder="*******"
           />
         </Col>
         <Col
@@ -89,7 +93,7 @@ const StudentInfo = () => {
             name="student.academicDepartment"
             options={acDepartmentOptions}
             label="Academic Department"
-            placeholder="Select"
+            placeholder="Select Department"
           />
         </Col>
         <Col
@@ -104,7 +108,7 @@ const StudentInfo = () => {
             name="student.academicFaculty"
             options={facultyOptions}
             label="Academic Faculty"
-            placeholder="Select"
+            placeholder="Select Faculty"
           />
         </Col>
         <Col
@@ -119,7 +123,7 @@ const StudentInfo = () => {
             name="student.academicSemester"
             options={acSemesterOptions}
             label="Academic Semester"
-            placeholder="Select"
+            placeholder="Select Semester"
           />
         </Col>
         <Col
@@ -134,7 +138,7 @@ const StudentInfo = () => {
             name="student.gender"
             options={genderOptions}
             label="Gender"
-            placeholder="Select"
+            placeholder="Select Department"
           />
         </Col>
         <Col

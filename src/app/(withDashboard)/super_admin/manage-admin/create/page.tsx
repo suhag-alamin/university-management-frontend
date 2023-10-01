@@ -101,6 +101,7 @@ const CreateAdmin = () => {
                   name="admin.name.firstName"
                   size="large"
                   label="First Name"
+                  placeholder="John"
                 />
               </Col>
               <Col
@@ -114,6 +115,7 @@ const CreateAdmin = () => {
                   name="admin.name.middleName"
                   size="large"
                   label="Middle Name"
+                  placeholder="Marcelo"
                 />
               </Col>
               <Col
@@ -127,6 +129,7 @@ const CreateAdmin = () => {
                   name="admin.name.lastName"
                   size="large"
                   label="Last Name"
+                  placeholder="Doe"
                 />
               </Col>
               <Col
@@ -140,6 +143,7 @@ const CreateAdmin = () => {
                   name="password"
                   size="large"
                   label="Password"
+                  placeholder="******"
                 />
               </Col>
               <Col
@@ -216,6 +220,7 @@ const CreateAdmin = () => {
                   name="admin.email"
                   size="large"
                   label="Email"
+                  placeholder="john@example.com"
                 />
               </Col>
               <Col
@@ -229,6 +234,7 @@ const CreateAdmin = () => {
                   name="admin.contactNo"
                   size="large"
                   label="Contact Number"
+                  placeholder="246467618"
                 />
               </Col>
               <Col
@@ -242,6 +248,7 @@ const CreateAdmin = () => {
                   name="admin.emergencyContactNo"
                   size="large"
                   label="Emergency Contact Number"
+                  placeholder="1565489845"
                 />
               </Col>
               <Col
@@ -266,7 +273,7 @@ const CreateAdmin = () => {
                   name="admin.bloodGroup"
                   size="large"
                   options={bloodGroupOptions}
-                  label="Gender"
+                  label="Blood Group"
                   placeholder="Select Blood Group"
                 />
               </Col>
@@ -281,6 +288,7 @@ const CreateAdmin = () => {
                   name="admin.designation"
                   size="large"
                   label="Designation"
+                  placeholder="HR"
                 />
               </Col>
               <Col
