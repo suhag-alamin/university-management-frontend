@@ -4,7 +4,7 @@ import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import { useUserLoginMutation } from "@/redux/features/auth/authApi";
 import { getUserInfo, storeUserInfo } from "@/services/auth.service";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
@@ -28,6 +28,7 @@ const Login = () => {
         if (res?.accessToken) {
           storeUserInfo(res?.accessToken);
           router.push("/profile");
+          message.success("Successfully logged In!");
         }
       }
     } catch (error) {
