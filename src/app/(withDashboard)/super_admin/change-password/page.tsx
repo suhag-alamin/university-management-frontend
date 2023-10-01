@@ -1,26 +1,34 @@
-import ActionBar from "@/components/ui/ActionBar";
-import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import { getUserInfo } from "@/services/auth.service";
+"use client";
+
+import Form from "@/components/Forms/Form";
+import FormInput from "@/components/Forms/FormInput";
+import { Button } from "antd";
 
 const ChangePassword = () => {
+  const onSubmit = async (data: any) => {
+    try {
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <div>
-      <div
-        style={{
-          marginLeft: 60,
-          marginTop: 10,
-        }}
-      >
-        <UMBreadCrumb
-          items={[
-            {
-              label: `super_admin`,
-              link: `/super_admin`,
-            },
-          ]}
-        />
-      </div>
-      <ActionBar title="Change Password" />
+    <div
+      style={{ margin: "100px 0", display: "flex", justifyContent: "center" }}
+    >
+      <Form submitHandler={onSubmit}>
+        <h3 style={{ marginBottom: "10px" }}>Reset Password</h3>
+        <div style={{ margin: "5px 0" }}>
+          <FormInput name="oldPassword" label="Old password" type="password" />
+        </div>
+        <div style={{ margin: "5px 0" }}>
+          <FormInput name="newPassword" label="New password" type="password" />
+        </div>
+        <Button type="primary" htmlType="submit">
+          submit
+        </Button>
+      </Form>
     </div>
   );
 };
