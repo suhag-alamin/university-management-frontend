@@ -3,14 +3,21 @@ import ActionBar from "@/components/ui/ActionBar";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
+import { useCreateDepartmentMutation } from "@/redux/features/department/departmentApi";
 
 const CreateDepartment = () => {
+  const [createDepartment] = useCreateDepartmentMutation();
   const onSubmit = async (data: any) => {
+    message.loading("Creating department...");
     try {
       console.log(data);
+      if (data) {
+        await createDepartment(data);
+        message.success("Department created successfully");
+      }
     } catch (err: any) {
-      console.error(err.message);
+      message.error(err.message);
     }
   };
   return (
@@ -34,7 +41,7 @@ const CreateDepartment = () => {
           ]}
         />
       </div>
-      <ActionBar title="Create Department" />
+      <ActionBar title="Create List" />
       <Form submitHandler={onSubmit}>
         <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
           <Col span={8} style={{ margin: "10px 0" }}>

@@ -1,7 +1,7 @@
 "use client";
 import { getErrorMessageByPropertyName } from "@/utils/schemaValidator";
 import { Input } from "antd";
-import { useFormContext, Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 type IInput = {
   name: string;
@@ -33,7 +33,13 @@ const FormInput = ({
 
   return (
     <>
-      {label ? label : null}
+      <p
+        style={{
+          marginBottom: 5,
+        }}
+      >
+        {label ? label : null}
+      </p>
       <Controller
         control={control}
         name={name}

@@ -1,4 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
+import { tagTypes } from "@/redux/tagTypes";
 
 const AUTH_URL = "/auth";
 
@@ -10,6 +11,7 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         data,
       }),
+      invalidatesTags: [tagTypes.user],
     }),
   }),
 });
