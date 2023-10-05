@@ -11,7 +11,10 @@ import UMTable from "@/components/ui/UMTable";
 import { Button, Input, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
-import { useGetDepartmentsQuery } from "@/redux/features/department/departmentApi";
+import {
+  useDeleteDepartmentMutation,
+  useGetDepartmentsQuery,
+} from "@/redux/features/department/departmentApi";
 import dayjs from "dayjs";
 import { useDebounced } from "@/redux/hooks";
 
@@ -23,7 +26,7 @@ const Department = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  // const [deleteDepartment] = useDeleteDepartmentMutation();
+  const [deleteDepartment] = useDeleteDepartmentMutation();
 
   query["limit"] = size;
   query["page"] = page;
@@ -47,11 +50,9 @@ const Department = () => {
   const deleteHandler = async (id: string) => {
     message.loading("Deleting.....");
     try {
-      //   console.log(data);
-      // await deleteDepartment(id);
+      await deleteDepartment(id);
       message.success("Department Deleted successfully");
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };
@@ -79,7 +80,6 @@ const Department = () => {
                 style={{
                   margin: "0px 5px",
                 }}
-                onClick={() => console.log(data)}
                 type="primary"
               >
                 <EditOutlined />

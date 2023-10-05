@@ -28,8 +28,40 @@ const departmentApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.department],
     }),
+
+    getDepartmentById: builder.query({
+      query: (id) => ({
+        url: `${DEPARTMENT_URL}/${id}`,
+        method: "GET",
+      }),
+
+      providesTags: [tagTypes.department],
+    }),
+
+    updateDepartment: builder.mutation({
+      query: (data) => ({
+        url: `${DEPARTMENT_URL}/${data.id}`,
+        method: "PATCH",
+        data: data.body,
+      }),
+
+      invalidatesTags: [tagTypes.department],
+    }),
+    deleteDepartment: builder.mutation({
+      query: (id) => ({
+        url: `${DEPARTMENT_URL}/${id}`,
+        method: "DELETE",
+      }),
+
+      invalidatesTags: [tagTypes.department],
+    }),
   }),
 });
 
-export const { useCreateDepartmentMutation, useGetDepartmentsQuery } =
-  departmentApi;
+export const {
+  useCreateDepartmentMutation,
+  useGetDepartmentsQuery,
+  useGetDepartmentByIdQuery,
+  useUpdateDepartmentMutation,
+  useDeleteDepartmentMutation,
+} = departmentApi;
