@@ -5,16 +5,18 @@ import FormInput from "@/components/Forms/FormInput";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { Button, Col, Row, message } from "antd";
 import { useCreateDepartmentMutation } from "@/redux/features/department/departmentApi";
+import { useRouter } from "next/navigation";
 
 const CreateDepartment = () => {
   const [createDepartment] = useCreateDepartmentMutation();
+  const router = useRouter();
   const onSubmit = async (data: any) => {
     message.loading("Creating department...");
     try {
-      console.log(data);
       if (data) {
         await createDepartment(data);
         message.success("Department created successfully");
+        router.push("/super_admin/department");
       }
     } catch (err: any) {
       message.error(err.message);
