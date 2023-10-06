@@ -7,41 +7,54 @@ import FormTextArea from "@/components/Forms/FormTextArea";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UploadImage from "@/components/ui/UploadImage";
-import {
-  bloodGroupOptions,
-  departmentOptions,
-  genderOptions,
-} from "@/constants/global";
+import { bloodGroupOptions, genderOptions } from "@/constants/global";
+import { useCreateAdminWithFormDataMutation } from "@/redux/features/admin/adminApi";
+import { useGetDepartmentsQuery } from "@/redux/features/department/departmentApi";
 import { adminSchema } from "@/schemas/admin";
+import { IDepartment } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Col, Row } from "antd";
-
-type FormValues = {
-  id: string;
-  password: string;
-};
+import { Button, Col, Row, message } from "antd";
+import { useRouter } from "next/navigation";
 
 const CreateAdmin = () => {
-  const onSubmit =
-    // : SubmitHandler<FormValues>
-    async (data: any) => {
-      try {
-        // if (data.id && data.password) {
-        //   console.log(data);
-        //   const res = await userLogin({
-        //     ...data,
-        //   }).unwrap();
+  const { data, isLoading } = useGetDepartmentsQuery({ limit: 100, page: 1 });
+  // @ts-ignore
+  const departments: IDepartment[] = data?.departments;
 
-        //   if (res?.accessToken) {
-        //     storeUserInfo(res?.accessToken);
-        //     router.push("/profile");
-        //   }
-        // }
-        console.log(data);
-      } catch (error) {
-        console.log(error);
+  const departmentOptions =
+    departments &&
+    departments?.map((dep) => {
+      return {
+        label: dep.title,
+        value: dep.id,
+      };
+    });
+
+  const [createAdmin, { data: adminData }] =
+    useCreateAdminWithFormDataMutation();
+
+  const router = useRouter();
+
+  const onSubmit = async (values: any) => {
+    const obj = { ...values };
+    const file = obj["file"];
+    delete obj["file"];
+    const data = JSON.stringify(obj);
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", data);
+    try {
+      if (formData) {
+        message.loading("Creating...");
+        console.log(formData);
+        await createAdmin(formData);
+        message.success("Admin Created successfully!");
+        router.push("super_admin/manage-admin");
       }
-    };
+    } catch (err: any) {
+      message.error(err.message);
+    }
+  };
   return (
     <div>
       <div
@@ -180,7 +193,7 @@ const CreateAdmin = () => {
                   marginBottom: "10px",
                 }}
               >
-                <UploadImage />
+                <UploadImage name="file" />
               </Col>
             </Row>
           </div>
@@ -317,7 +330,7 @@ const CreateAdmin = () => {
               </Col>
             </Row>
           </div>
-          <Button type="primary" htmlType="submit">
+          <Button htmlType="submit" type="primary">
             Create
           </Button>
         </Form>
