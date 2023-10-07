@@ -17,13 +17,11 @@ export const adminApi = baseApi.injectEndpoints({
     }),
 
     getAdmins: builder.query({
-      query: (arg: Record<string, any>) => {
-        return {
-          url: ADMIN_URL,
-          method: "GET",
-          params: arg,
-        };
-      },
+      query: (arg: Record<string, any>) => ({
+        url: ADMIN_URL,
+        method: "GET",
+        params: arg,
+      }),
       transformResponse: (response: IAdmin[], meta: IMeta) => {
         return {
           admins: response,
@@ -32,8 +30,29 @@ export const adminApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.admin],
     }),
+    getAdminById: builder.query({
+      query: (id: string) => ({
+        url: `${ADMIN_URL}/${id}`,
+        method: "GET",
+      }),
+
+      providesTags: [tagTypes.admin],
+    }),
+    updateAdmin: builder.mutation({
+      query: (data) => ({
+        url: `${ADMIN_URL}/${data.id}`,
+        method: "PATCH",
+        data: data?.body,
+      }),
+
+      invalidatesTags: [tagTypes.admin],
+    }),
   }),
 });
 
-export const { useCreateAdminWithFormDataMutation, useGetAdminsQuery } =
-  adminApi;
+export const {
+  useCreateAdminWithFormDataMutation,
+  useGetAdminsQuery,
+  useGetAdminByIdQuery,
+  useUpdateAdminMutation,
+} = adminApi;

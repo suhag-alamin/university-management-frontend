@@ -6,18 +6,25 @@ import FormSelectField from "@/components/Forms/FormSelectField";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import UploadImage from "@/components/ui/UploadImage";
 import { bloodGroupOptions, genderOptions } from "@/constants/global";
-import { useCreateAdminWithFormDataMutation } from "@/redux/features/admin/adminApi";
+import {
+  useGetAdminByIdQuery,
+  useUpdateAdminMutation,
+} from "@/redux/features/admin/adminApi";
 import { useGetDepartmentsQuery } from "@/redux/features/department/departmentApi";
-import { adminSchema } from "@/schemas/admin";
-import { IDepartment } from "@/types";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { IAdmin, IDepartment } from "@/types";
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 
-const CreateAdmin = () => {
-  const { data, isLoading } = useGetDepartmentsQuery({ limit: 100, page: 1 });
+type IDProps = {
+  params: any;
+};
+
+const EditAdmin = ({ params }: IDProps) => {
+  const { id } = params;
+
+  const { data } = useGetDepartmentsQuery({ limit: 100, page: 1 });
+  const { data: adminData } = useGetAdminByIdQuery(id);
   // @ts-ignore
   const departments: IDepartment[] = data?.departments;
 
@@ -30,30 +37,43 @@ const CreateAdmin = () => {
       };
     });
 
-  const [createAdmin, { data: adminData }] =
-    useCreateAdminWithFormDataMutation();
+  const [updateAdmin, { data: adminDatas }] = useUpdateAdminMutation();
 
   const router = useRouter();
 
-  const onSubmit = async (values: any) => {
-    const obj = { ...values };
-    const file = obj["file"];
-    delete obj["file"];
-    const data = JSON.stringify(obj);
-    const formData = new FormData();
-    formData.append("file", file as Blob);
-    formData.append("data", data);
+  const onSubmit = async (values: IAdmin) => {
+    message.loading("Updating.....");
+
     try {
-      if (formData) {
-        message.loading("Creating...");
-        console.log(formData);
-        await createAdmin(formData);
-        message.success("Admin Created successfully!");
+      if (values && id) {
+        await updateAdmin({
+          id,
+          body: values,
+        });
+        message.success("Admin updated successfully!");
         router.push("/super_admin/manage-admin");
       }
     } catch (err: any) {
-      message.error(err.message);
+      message.error(err.message || "Failed to update");
     }
+  };
+
+  const defaultValues = {
+    name: {
+      firstName: adminData?.name.firstName,
+      middleName: adminData?.name.middleName,
+      lastName: adminData?.name.lastName,
+    },
+    email: adminData?.email,
+    gender: adminData?.gender,
+    managementDepartment: adminData?.managementDepartment?.id,
+    contactNo: adminData?.contactNo,
+    emergencyContactNo: adminData?.emergencyContactNo,
+    dateOfBirth: adminData?.dateOfBirth,
+    bloodGroup: adminData?.bloodGroup,
+    designation: adminData?.designation,
+    presentAddress: adminData?.presentAddress,
+    permanentAddress: adminData?.permanentAddress,
   };
   return (
     <div>
@@ -78,7 +98,7 @@ const CreateAdmin = () => {
       </div>
       <ActionBar title="Create Admin" />
       <div>
-        <Form submitHandler={onSubmit} resolver={yupResolver(adminSchema)}>
+        <Form submitHandler={onSubmit} defaultValues={defaultValues}>
           <div
             style={{
               border: "1px solid #d9d9d9",
@@ -111,7 +131,7 @@ const CreateAdmin = () => {
               >
                 <FormInput
                   type="text"
-                  name="admin.name.firstName"
+                  name="name.firstName"
                   size="large"
                   label="First Name"
                   placeholder="John"
@@ -125,7 +145,7 @@ const CreateAdmin = () => {
               >
                 <FormInput
                   type="text"
-                  name="admin.name.middleName"
+                  name="name.middleName"
                   size="large"
                   label="Middle Name"
                   placeholder="Marcelo"
@@ -139,13 +159,13 @@ const CreateAdmin = () => {
               >
                 <FormInput
                   type="text"
-                  name="admin.name.lastName"
+                  name="name.lastName"
                   size="large"
                   label="Last Name"
                   placeholder="Doe"
                 />
               </Col>
-              <Col
+              {/* <Col
                 span={8}
                 style={{
                   marginBottom: "10px",
@@ -158,7 +178,7 @@ const CreateAdmin = () => {
                   label="Password"
                   placeholder="******"
                 />
-              </Col>
+              </Col> */}
               <Col
                 span={8}
                 style={{
@@ -166,7 +186,7 @@ const CreateAdmin = () => {
                 }}
               >
                 <FormSelectField
-                  name="admin.gender"
+                  name="gender"
                   size="large"
                   options={genderOptions}
                   label="Gender"
@@ -180,21 +200,21 @@ const CreateAdmin = () => {
                 }}
               >
                 <FormSelectField
-                  name="admin.managementDepartment"
+                  name="managementDepartment"
                   size="large"
                   options={departmentOptions}
                   label="Department"
                   placeholder="Select Department"
                 />
               </Col>
-              <Col
+              {/* <Col
                 span={8}
                 style={{
                   marginBottom: "10px",
                 }}
               >
                 <UploadImage name="file" />
-              </Col>
+              </Col> */}
             </Row>
           </div>
           {/* basic info */}
@@ -230,7 +250,7 @@ const CreateAdmin = () => {
               >
                 <FormInput
                   type="email"
-                  name="admin.email"
+                  name="email"
                   size="large"
                   label="Email"
                   placeholder="john@example.com"
@@ -244,7 +264,7 @@ const CreateAdmin = () => {
               >
                 <FormInput
                   type="text"
-                  name="admin.contactNo"
+                  name="contactNo"
                   size="large"
                   label="Contact Number"
                   placeholder="246467618"
@@ -258,7 +278,7 @@ const CreateAdmin = () => {
               >
                 <FormInput
                   type="text"
-                  name="admin.emergencyContactNo"
+                  name="emergencyContactNo"
                   size="large"
                   label="Emergency Contact Number"
                   placeholder="1565489845"
@@ -271,7 +291,7 @@ const CreateAdmin = () => {
                 }}
               >
                 <FormDatePicker
-                  name="admin.dateOfBirth"
+                  name="dateOfBirth"
                   size="large"
                   label="Date of Birth"
                 />
@@ -283,7 +303,7 @@ const CreateAdmin = () => {
                 }}
               >
                 <FormSelectField
-                  name="admin.bloodGroup"
+                  name="bloodGroup"
                   size="large"
                   options={bloodGroupOptions}
                   label="Blood Group"
@@ -298,7 +318,7 @@ const CreateAdmin = () => {
               >
                 <FormInput
                   type="text"
-                  name="admin.designation"
+                  name="designation"
                   size="large"
                   label="Designation"
                   placeholder="HR"
@@ -312,7 +332,7 @@ const CreateAdmin = () => {
               >
                 <FormTextArea
                   rows={6}
-                  name="admin.presentAddress"
+                  name="presentAddress"
                   label="Present Address"
                 />
               </Col>
@@ -324,14 +344,14 @@ const CreateAdmin = () => {
               >
                 <FormTextArea
                   rows={6}
-                  name="admin.permanentAddress"
+                  name="permanentAddress"
                   label="Permanent Address"
                 />
               </Col>
             </Row>
           </div>
           <Button htmlType="submit" type="primary">
-            Create
+            Update
           </Button>
         </Form>
       </div>
@@ -339,4 +359,4 @@ const CreateAdmin = () => {
   );
 };
 
-export default CreateAdmin;
+export default EditAdmin;

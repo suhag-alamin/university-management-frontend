@@ -34,7 +34,7 @@ export interface Name {
 }
 
 export interface IAdmin {
-  id: string;
+  id?: string;
   name: Name;
   gender: string;
   managementDepartment: string;
@@ -46,7 +46,8 @@ export interface IAdmin {
   designation: string;
   presentAddress: string;
   permanentAddress: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
+  createdAt?: string;
+  updatedAt?: string;
+  profileImage?: string;
+  __v?: number;
 }

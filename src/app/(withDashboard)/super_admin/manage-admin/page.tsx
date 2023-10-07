@@ -54,7 +54,9 @@ const ManageAdmin = () => {
       title: "Name",
       dataIndex: "name",
       render: function (data: Record<string, string>) {
-        const fullName = `${data?.firstName} ${data?.middleName} ${data?.lastName}`;
+        const fullName = `${data?.firstName} ${
+          data?.middleName ? data?.middleName : ""
+        } ${data?.lastName}`;
         return <>{fullName}</>;
       },
     },
@@ -91,18 +93,18 @@ const ManageAdmin = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/super_admin/admin/details/${data.id}`}>
+            <Link href={`/super_admin/manage-admin/details/${data}`}>
               <Button onClick={() => console.log(data)} type="primary">
                 <EyeOutlined />
               </Button>
             </Link>
-            <Link href={`/super_admin/admin/edit/${data.id}`}>
+            <Link href={`/super_admin/manage-admin/edit/${data}`}>
               <Button
                 style={{
                   margin: "0px 5px",
                 }}
-                onClick={() => console.log(data)}
                 type="primary"
+                onClick={() => console.log(data)}
               >
                 <EditOutlined />
               </Button>
