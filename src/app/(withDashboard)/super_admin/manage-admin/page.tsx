@@ -3,7 +3,7 @@ import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UMTable from "@/components/ui/UMTable";
 import Link from "next/link";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -15,7 +15,10 @@ import { useState } from "react";
 import { useDebounced } from "@/redux/hooks";
 import { IDepartment } from "@/types";
 import dayjs from "dayjs";
-import { useGetAdminsQuery } from "@/redux/features/admin/adminApi";
+import {
+  useDeleteAdminMutation,
+  useGetAdminsQuery,
+} from "@/redux/features/admin/adminApi";
 
 const ManageAdmin = () => {
   const query: Record<string, any> = {};
@@ -40,6 +43,15 @@ const ManageAdmin = () => {
     query["searchTerm"] = debouncedSearchTerm;
   }
   const { data, isLoading } = useGetAdminsQuery({ ...query });
+
+  const [deleteAdmin] = useDeleteAdminMutation();
+
+  const handleDeleteAdmin = async (id: string) => {
+    console.log(id);
+    message.loading("Deleting Admin");
+    await deleteAdmin(id);
+    message.success("Admin deleted");
+  };
 
   const admins = data?.admins;
   const meta = data?.meta;
@@ -94,7 +106,7 @@ const ManageAdmin = () => {
         return (
           <>
             <Link href={`/super_admin/manage-admin/details/${data}`}>
-              <Button onClick={() => console.log(data)} type="primary">
+              <Button type="primary">
                 <EyeOutlined />
               </Button>
             </Link>
@@ -104,12 +116,15 @@ const ManageAdmin = () => {
                   margin: "0px 5px",
                 }}
                 type="primary"
-                onClick={() => console.log(data)}
               >
                 <EditOutlined />
               </Button>
             </Link>
-            <Button onClick={() => console.log(data)} type="primary" danger>
+            <Button
+              onClick={() => handleDeleteAdmin(data)}
+              type="primary"
+              danger
+            >
               <DeleteOutlined />
             </Button>
           </>
@@ -118,13 +133,11 @@ const ManageAdmin = () => {
     },
   ];
   const onPaginationChange = (page: number, pageSize: number) => {
-    console.log("Page:", page, "PageSize:", pageSize);
     setPage(page);
     setSize(pageSize);
   };
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
     const { order, field } = sorter;
-    // console.log(order, field);
     setSortBy(field as string);
     setSortOrder(order === "ascend" ? "asc" : "desc");
   };

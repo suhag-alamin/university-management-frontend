@@ -46,7 +46,6 @@ const CreateAdmin = () => {
     try {
       if (formData) {
         message.loading("Creating...");
-        console.log(formData);
         await createAdmin(formData);
         message.success("Admin Created successfully!");
         router.push("/super_admin/manage-admin");
